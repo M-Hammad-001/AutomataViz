@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automata Converter - Theory of Automata</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/viz.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/full.render.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="logo">AutomataViz</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-main">
+        <div class="regex-display">
+            <div style="font-size: 1rem; color: #a0a0cc; margin-bottom: 0.5rem;">Regular Expression</div>
+            <div class="regex-text">aba + bb + c(aaa + aa + a)*</div>
+        </div>
+
+        <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#nfa-tab">ε-NFA</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#dfa-tab">DFA</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#min-tab">Minimized DFA</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#sim-tab">Simulation</button>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- NFA Tab -->
+            <div class="tab-pane fade show active" id="nfa-tab">
+                <div class="card">
+                    <div class="card-header">ε-NFA (Thompson's Construction)</div>
+                    <div class="card-body">
+                        <div class="state-info">
+                            <div><strong>Start State:</strong> <span id="nfa-start">q0</span></div>
+                            <div><strong>Accept State:</strong> <span id="nfa-accept">q25</span></div>
+                            <div><strong>Total States:</strong> <span id="nfa-states">26</span></div>
+                        </div>
+                        
+                        <div class="diagram-container" id="nfa-diagram">
+                            <div style="color: #a0a0cc;">Generating graph...</div>
+                        </div>
+
+                        <div id="nfa-table"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DFA Tab -->
+            <div class="tab-pane fade" id="dfa-tab">
+                <div class="card">
+                    <div class="card-header">DFA (Subset Construction)</div>
+                    <div class="card-body">
+                        <div class="state-info">
+                            <div><strong>Start State:</strong> <span id="dfa-start">A</span></div>
+                            <div><strong>Accept States:</strong> <span id="dfa-accept">D, F, G, H</span></div>
+                            <div><strong>Total States:</strong> <span id="dfa-states">9</span></div>
+                        </div>
+                        
+                        <div class="diagram-container" id="dfa-diagram">
+                            <div style="color: #a0a0cc;">Generating graph...</div>
+                        </div>
+
+                        <div id="dfa-table"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Minimized DFA Tab -->
+            <div class="tab-pane fade" id="min-tab">
+                <div class="card">
+                    <div class="card-header">Minimized DFA (Table-Filling Algorithm)</div>
+                    <div class="card-body">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" id="min-before">9</div>
+                                <div class="stat-label">States Before</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="min-after">7</div>
+                                <div class="stat-label">States After</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="min-reduction">22.22%</div>
+                                <div class="stat-label">Reduction</div>
+                            </div>
+                        </div>
+                        <div class="state-info">
+                            <div><strong>Start State:</strong> <span id="min-start">A</span></div>
+                            <div><strong>Accept States:</strong> <span id="min-accept">DG, FH</span></div>
+                        </div>
+
+                        <div class="diagram-container" id="min-diagram">
+                            <div style="color: #a0a0cc;">Generating graph...</div>
+                        </div>
+
+                        <div id="min-table"></div>
+                        <div id="merged-states" style="margin-top: 2rem;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simulation Tab -->
+            <div class="tab-pane fade" id="sim-tab">
+                <div class="card">
+                    <div class="card-header">String Simulation</div>
+                    <div class="card-body">
+                        <div class="simulation-input">
+                            <label style="color: var(--primary); font-weight: 600; margin-bottom: 0.5rem; display: block;">Test String:</label>
+                            <input type="text" id="test-string" placeholder="Enter string to test (e.g., aba, bb, caaa)">
+                        </div>
+                        <button class="btn-custom" onclick="simulateString()">▶ Simulate</button>
+                        
+                        <div style="margin-top: 1rem;">
+                            <strong style="color: var(--primary);">Quick Test Examples:</strong>
+                            <div class="quick-tests">
+                                <button class="quick-test-btn" onclick="quickTest('aba')">aba</button>
+                                <button class="quick-test-btn" onclick="quickTest('bb')">bb</button>
+                                <button class="quick-test-btn" onclick="quickTest('caaa')">caaa</button>
+                                <button class="quick-test-btn" onclick="quickTest('caaaa')">caaaa</button>
+                                <button class="quick-test-btn" onclick="quickTest('ca')">ca</button>
+                                <button class="quick-test-btn" onclick="quickTest('abc')">abc</button>
+                            </div>
+                        </div>
+
+                        <div id="simulation-steps" style="margin-top: 2rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="javascript.js"></script>
+</body>
+</html>
