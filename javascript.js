@@ -343,6 +343,9 @@ const nfa = {
             }
         }
 
+
+        // Generate NFA Diagram
+
         async function generateNFADiagram() {
             const dot = `
 digraph NFA {
@@ -407,6 +410,8 @@ digraph NFA {
             }
         }
 
+        // Generate DFA Diagram
+
         async function generateDFADiagram() {
             const dot = `
 digraph DFA {
@@ -453,6 +458,9 @@ digraph DFA {
                 console.error('Error rendering DFA:', error);
             }
         }
+
+
+        // Generate Minimized DFA Diagram
 
         async function generateMinDFADiagram() {
             const dot = `
@@ -550,6 +558,8 @@ digraph MinDFA {
             html += '</tbody></table>';
             document.getElementById('dfa-table').innerHTML = html;
         }
+
+        // Render Minimized DFA Table
 
         function renderMinDFATable() {
             const symbols = ['a', 'b', 'c'];

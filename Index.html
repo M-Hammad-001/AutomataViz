@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/full.render.js"></script>
 </head>
 <body>
+    <!-- Header Section -->
     <div class="header">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
@@ -122,13 +123,13 @@
                 <div class="tab-pane fade" id="sim-tab">
                     <div class="card">
 
-                                 <!-- Unified Input Section -->
+                                <!-- Unified Input Section -->
         <div class="unified-input-section" id="unifiedInputSection">
             <div class="input-label">Enter Regular Expression or Test String</div>
             <div class="regex-input-wrapper">
                 <input type="text" class="unified-input" id="unifiedInput" 
-                       placeholder="e.g., aba + bb + c(aaa + aa + a)* or aba"
-                       value="aba + bb + c(aaa + aa + a)*">
+                    placeholder="e.g., aba + bb + c(aaa + aa + a)* or aba"
+                    value="aba + bb + c(aaa + aa + a)*">
             </div>
             <div class="button-group">
                 <button class="validate-btn" onclick="validateAndGenerate()">
@@ -172,6 +173,7 @@
             </div>
         </div>
 
+                    <!-- Pre Simulation Results -->
 
                     <div class="card-header">String Simulation Results</div>
                         <div class="card-body">
@@ -191,8 +193,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
