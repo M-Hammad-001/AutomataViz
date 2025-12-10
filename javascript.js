@@ -1,4 +1,5 @@
- const nfa = {
+// Transition table for NFA
+const nfa = {
             start: 'q0',
             accept: 'q25',
             transitions: {
@@ -31,6 +32,7 @@
             }
         };
 
+        // Transition table for DFA
         const dfa = {
             start: 'A',
             accept: ['D', 'F', 'G', 'H'],
@@ -46,6 +48,8 @@
                 'Z': {'a': 'Z', 'b': 'Z', 'c': 'Z'}
             }
         };
+
+        // Transition table for Minimized DFA
 
         const minDfa = {
             start: 'A',
@@ -240,6 +244,8 @@
             }
         }
 
+        // ============= SIMULATION =============
+
         function simulateString() {
             const input = document.getElementById('unifiedInput').value.trim();
             const inputSection = document.getElementById('unifiedInputSection');
@@ -262,6 +268,8 @@
                 errorDetails.innerHTML = 'Please enter a test string to simulate.';
                 return;
             }
+
+            // checking for Rejected or Accepted
 
             const steps = [];
             let currentState = minDfa.start;
