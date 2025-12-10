@@ -197,6 +197,8 @@ const nfa = {
             };
         }
 
+
+
         function validateAndGenerate() {
             const input = document.getElementById('unifiedInput').value;
             const inputSection = document.getElementById('unifiedInputSection');
@@ -507,6 +509,9 @@ digraph MinDFA {
             }
         }
 
+
+        // Render NFA Table
+
         function renderNFATable() {
             const symbols = ['a', 'b', 'c', 'ε'];
             const states = Object.keys(nfa.transitions).sort((a, b) => {
@@ -534,6 +539,9 @@ digraph MinDFA {
             html += '</tbody></table>';
             document.getElementById('nfa-table').innerHTML = html;
         }
+
+
+        // Render DFA Table
 
         function renderDFATable() {
             const symbols = ['a', 'b', 'c'];
@@ -593,6 +601,7 @@ digraph MinDFA {
             mergedHtml += '</div></div>';
             document.getElementById('merged-states').innerHTML = mergedHtml;
         }
+
 
         async function init() {
             await initViz();
